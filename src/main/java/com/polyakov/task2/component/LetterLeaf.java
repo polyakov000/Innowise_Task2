@@ -1,19 +1,17 @@
 package com.polyakov.task2.component;
 
-import java.util.Collections;
 import java.util.List;
 
-public class TextLeaf implements TextComponent{
-  private String string;
-  private TextComponentType type;
+public class LetterLeaf implements TextComponent{
+  private char symbol;
+  private final TextComponentType type = TextComponentType.LETTER;
 
-  public TextLeaf(String string, TextComponentType type) {
-    this.string = string;
-    this.type = type;
+  public LetterLeaf(char symbol) {
+    this.symbol = symbol;
   }
 
-  public String getTextContent() {
-    return string;
+  public char getTextContent() {
+    return symbol;
   }
 
   @Override

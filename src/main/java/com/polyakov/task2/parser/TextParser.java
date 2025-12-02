@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TextParser extends AbstractParser{
   private static final Logger log = LogManager.getLogger();
-  private static final String PARAGRAPH_DELIMITER = "\\n{2,}";
+  private static final String PARAGRAPH_DELIMITER = "\\n+";
 
   public TextParser(AbstractParser nextParser) {
     super(nextParser);
