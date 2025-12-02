@@ -64,7 +64,7 @@ public class TextComposite implements TextComponent{
           break;
 
         case PUNCTUATION:
-          sb.append(component.toString());
+          sb.append(((PunctuationLeaf)component).getTextContent());
           break;
 
         case LETTER:
