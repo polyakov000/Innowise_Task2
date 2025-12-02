@@ -40,27 +40,27 @@ public class TextComposite implements TextComponent{
     for (TextComponent component : components) {
       switch (component.getType()) {
         case TEXT:
-          sb.append(component.toString());
+          sb.append(component);
           break;
 
         case PARAGRAPH:
           sb.append(TABULATION)
-                  .append(component.toString())
+                  .append(component)
                   .append(NEW_LINE);
           break;
 
         case SENTENCE:
-          sb.append(component.toString())
+          sb.append(component)
                   .append(WHITESPACE);
           break;
 
         case LEXEME:
-          sb.append(component.toString())
+          sb.append(component)
                   .append(WHITESPACE);
           break;
 
         case WORD:
-          sb.append(component.toString());
+          sb.append(component);
           break;
 
         case PUNCTUATION:
