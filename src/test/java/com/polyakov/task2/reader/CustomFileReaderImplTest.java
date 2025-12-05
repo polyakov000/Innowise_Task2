@@ -11,35 +11,32 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomFileReaderImplTest {
-  private static final String FILE_PATH = "data/input.txt";
   private static final CustomFileReader customFileReader = new CustomFileReaderImpl();
+  private static Path tempFile;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws IOException {
+    tempFile = Files.createTempFile("testFile", ".txt");
+    Files.writeString(tempFile, "Hello, world!");
   }
 
   @AfterEach
-  void tearDown() {
+  void tearDown() throws IOException {
+    Files.deleteIfExists(tempFile);
   }
 
   @Test
   void readFile() throws CustomFileException {
-    String actual = customFileReader.readFile(FILE_PATH);
-    AbstractParser parser = new TextParser(
-            new ParagraphParser(
-                    new SentenceParser(
-                            new LexemeParser(
-                                    new WordParser()))));
-    TextComposite text = (TextComposite) parser.parse(actual);
-    System.out.println(text.toString());
-    TextService textService = new TextServiceImpl();
-    System.out.println(textService.findSentenceWithMaxCountOfSimilarWords(text));
-    System.out.println(textService.sortSentencesByLexemes(text));
-    System.out.println(textService.switchLastFirstLexemeInSentence(text));
+    String actualContent = customFileReader.readFile(tempFile.toString());
+    String expectedContent = "Hello, world!";
+    assertEquals(expectedContent, actualContent);
   }
 }
