@@ -33,4 +33,9 @@ public class PunctuationLeaf implements TextComponent{
   public TextComponentType getType() {
     return type;
   }
+
+  @Override
+  public String toString() {
+    return String.valueOf(symbol);
+  }
 }

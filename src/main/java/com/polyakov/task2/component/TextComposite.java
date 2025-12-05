@@ -36,44 +36,41 @@ public class TextComposite implements TextComponent{
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-
-    for (TextComponent component : components) {
-      switch (component.getType()) {
-        case TEXT:
-          sb.append(component);
-          break;
-
-        case PARAGRAPH:
+    switch (getType()) {
+      case TEXT:
+        for (TextComponent component : getChildren()) {
           sb.append(TABULATION)
-                  .append(component)
+                  .append(component.toString())
                   .append(NEW_LINE);
-          break;
+        }
+        break;
 
-        case SENTENCE:
-          sb.append(component)
+      case PARAGRAPH:
+        for (TextComponent component : getChildren()) {
+            sb.append(component.toString());
+        }
+        break;
+
+      case SENTENCE:
+        for (TextComponent component : getChildren()) {
+          sb.
+                  append(component.toString())
                   .append(WHITESPACE);
-          break;
+        }
+        break;
 
-        case LEXEME:
-          sb.append(component)
-                  .append(WHITESPACE);
-          break;
+      case LEXEME:
+        for (TextComponent component : getChildren()) {
+          sb.append(component.toString());
+        }
+        break;
 
-        case WORD:
-          sb.append(component);
-          break;
-
-        case PUNCTUATION:
-          sb.append(((PunctuationLeaf)component).getTextContent());
-          break;
-
-        case LETTER:
-            sb.append(((LetterLeaf) component).getTextContent());
-          break;
-      }
+      case WORD:
+        for (TextComponent component : components) {
+          sb.append(component.toString());
+        }
+        break;
     }
-
-    return sb.toString().trim();
+    return sb.toString();
   }
-
 }

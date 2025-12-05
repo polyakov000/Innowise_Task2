@@ -22,7 +22,7 @@
   <Loggers>
     <Root level = "debug">
       <AppenderRef ref = "TxtFile"/>
-      <AppenderRef ref = "Console"/>
+<!--      <AppenderRef ref = "Console"/>-->
     </Root>
   </Loggers>
 </Configuration>

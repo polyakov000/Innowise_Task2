@@ -1,10 +1,12 @@
 package com.polyakov.task2.reader;
 
+import com.polyakov.task2.component.TextComponent;
+import com.polyakov.task2.component.TextComposite;
 import com.polyakov.task2.exception.CustomFileException;
-import com.polyakov.task2.parser.AbstractParser;
-import com.polyakov.task2.parser.ParagraphParser;
-import com.polyakov.task2.parser.SentenceParser;
+import com.polyakov.task2.parser.*;
 import com.polyakov.task2.reader.impl.CustomFileReaderImpl;
+import com.polyakov.task2.service.TextService;
+import com.polyakov.task2.service.impl.TextServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,5 +30,16 @@ class CustomFileReaderImplTest {
   @Test
   void readFile() throws CustomFileException {
     String actual = customFileReader.readFile(FILE_PATH);
+    AbstractParser parser = new TextParser(
+            new ParagraphParser(
+                    new SentenceParser(
+                            new LexemeParser(
+                                    new WordParser()))));
+    TextComposite text = (TextComposite) parser.parse(actual);
+    System.out.println(text.toString());
+    TextService textService = new TextServiceImpl();
+    System.out.println(textService.findSentenceWithMaxCountOfSimilarWords(text));
+    System.out.println(textService.sortSentencesByLexemes(text));
+    System.out.println(textService.switchLastFirstLexemeInSentence(text));
   }
 }
